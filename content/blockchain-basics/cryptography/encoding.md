@@ -26,11 +26,11 @@ faq:
 
 ## Encoding is not encryption
 
-Encoding and encryption are completely different things, even though the words sound similar.
+Encoding and encryption are two completely different things, although sound similar. 
 
-**Encryption** scrambles data so only someone with the right key can read it. The output is supposed to be unreadable to everyone else. The next lesson covers encryption properly.
+**Encryption** scrambles data so only someone with the right key can read it. The output is supposed to be unreadable to everyone else. The next lesson covers encryption.
 
-**Encoding** translates data into a different representation so it can travel safely through systems that have constraints on what characters they accept. The output is supposed to be readable. There is no key. Anyone can decode it.
+**Encoding** translates data into a different representation so it can travel safely through systems that have constraints on what characters they accept. The output is supposed to be readable; no key included, anyone can decode it.
 
 The same two bytes can be encoded as `Hi` in ASCII, `48 69` in hex, `SGk=` in Base64, or `6Wc` in Base58. All four represent the same underlying data. Switching between them does not change the data, it changes how the data looks on the page.
 
@@ -44,9 +44,9 @@ The hash from the previous lesson is 256 bits of binary data. Try to print those
 ,Ò$Û¥û°£.&è;*ÅùZé¿b^p43 62)8¹$
 ```
 
-That string contains invisible control characters, characters that break URL parsing, characters that some email systems treat as line endings, and characters that render differently on different operating systems. Pasting it somewhere and getting it back unchanged is impossible to guarantee.
+That string contains invisible control characters, characters that break URL parsing, characters that some email systems treat as line endings, and characters that render differently on different operating systems. Pasting it somewhere and getting it back unchanged is impossible to guarantee. Therefore, we encode it. 
 
-So we encode it. Pick a representation that uses only safe characters, accept that the resulting string will be longer than the raw bytes, and move on. The different encoding schemes you'll meet make different tradeoffs about which character set to use and how long the output ends up.
+Pick a representation that uses only safe characters, accept that the resulting string will be longer than the raw bytes, and move on. The different encoding schemes you'll meet make different tradeoffs about which character set to use and how long the output ends up.
 
 ## The encodings you'll see
 
@@ -109,6 +109,6 @@ The playground below lets you try this yourself. Type any input and watch hex, B
 
 ## A practical note for later in the course
 
-Hex and Base58 cause confusion in one specific way: when you start meeting addresses on different systems, some will look like long lowercase-hex strings and others will look like mixed-case Base58 strings. They look so different that it's tempting to assume they represent fundamentally different kinds of data. They don't. Underneath, both formats are usually wrapping the same kind of fixed-size byte sequence that comes out of a cryptographic process. The encoding is the wrapper, the data inside is the same kind of thing.
+Hex and Base58 cause confusion in one specific way: when you start meeting addresses on different systems, some will look like long lowercase-hex strings and others will look like mixed-case Base58 strings. Both seem like they represent two different kinds of data but they don't. Underneath, both formats are usually wrapping the same kind of fixed-size byte sequence that comes out of a cryptographic process. The encoding is the wrapper, the data inside is the same kind of thing.
 
 This will matter again in the wallet-creation lesson, where the same starting secret produces addresses that look very different across different systems. Part of that difference is just the encoding wrapper, and the lesson will show how much.
