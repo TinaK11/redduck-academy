@@ -28,11 +28,11 @@ faq:
       64 bytes, or 65 when it carries the recovery id byte.
 ---
 
-> A blockchain transaction travels across an open network with no return address, no email header, no session cookie. Yet every node receiving it has to decide: did this transaction come from someone authorised to spend these funds? The mechanism that answers that question, billions of times per day across every public chain, is the topic of this lesson. It's also the operational pay-off for everything you've learned so far about key pairs.
+> Not a single blockchain transaction travels across an open network with a return address, an email header, or a session cookie. Yet, every node receiving it has to decide whether that transaction has come from someone authorised to spend these funds. The mechanism that defines that, billions of times per day across every public chain, is the topic of this lesson. It's also the operational pay-off for everything you've learned so far about key pairs.
 
 ## The problem
 
-You hold a private key. You want to tell the network "move some value from my account to this other account." The network has never met you. It will never meet you. It cannot ask for your password because there is no password and no one to receive it.
+You hold a private key and you want to tell the network "move some value from my account to this other account." The network has never met you, neither can it ask for your password because there is no password and no one to receive it.
 
 What you can send is a **transaction** plus a **signature** on that transaction. Anyone with your public key can then check whether the signature is valid for that exact transaction. If it is, the network accepts that the transaction came from whoever holds the private key that pairs with the public key in question. If it isn't, the transaction is rejected.
 
@@ -44,7 +44,7 @@ For this to work, the signature scheme must guarantee three things:
 
 These three properties are exactly what the public-key math from earlier can deliver. The same key-pair construction that powered the encryption examples works in the opposite direction: instead of encrypting *to* the public key, you sign *with* the private key, and anyone verifies against the public key. Different goal, same underlying mathematical asymmetry.
 
-## How sign and verify work
+## How sign-and-verify works
 
 A signature scheme has two operations.
 
@@ -108,11 +108,11 @@ A signature scheme has two operations.
   <polygon points="612,235 622,240 612,245" fill="#565653"/>
 </svg>
 
-Verifying does not require the private key. This is the entire point. The wallet that sent the transaction holds the private key. Every node in the world that validates the transaction has only the public key, the message, and the signature. The protocol works because verification with just those three values is enough.
+The verification doesn't require the private key because the wallet, that sent the transaction, holds the private key. Every node in the world that validates the transaction has only the public key, the message, and the signature. The protocol works because verification with just those three values is enough.
 
 The most common signature scheme on the chains you'll meet is **ECDSA**, the Elliptic Curve Digital Signature Algorithm, used with the same secp256k1 curve that produces the key pairs. ECDSA does most of the signing work: every transaction on the largest chain families produces one. **Ed25519** has its own integrated signing scheme (technically called EdDSA) and is used by some newer chains.
 
-For both schemes the operational properties are the same: sign with the private key, verify with the public key, signatures are ~64 bytes, signing is fast, verification is fast, and forgery without the private key is computationally infeasible.
+For both schemes the operational properties are the same: sign with the private key, verify with the public key. Signatures are ~64 bytes, so signing and verification are fast; a forgery without the private key is computationally infeasible.
 
 ## Where ECDSA hides a trap
 
@@ -163,7 +163,7 @@ On many chains the recovery operation is exposed to smart-contract code as a bui
 
 Three properties are now real to you instead of abstract.
 
-**Authentication on a blockchain works without identity in the traditional sense.** No usernames, no central registry of who-is-who. Just private keys, signatures, and recovered public keys. If the math checks out, the transaction is yours.
+**Authentication on a blockchain works without identity in the traditional sense.** No usernames or central registry of who-is-who; only private keys, signatures, and recovered public keys. If the math checks out, the transaction is yours.
 
 **Signatures bind to exact messages.** You cannot reuse a signature on a different transaction. You cannot tamper with a transaction without invalidating its signature. The integrity comes from the math rather than from a trusted intermediary.
 
@@ -171,4 +171,4 @@ Three properties are now real to you instead of abstract.
 
 ## The cryptographic toolkit you now have
 
-You've now seen the four cryptographic building blocks that the rest of blockchain rests on: hash functions, encoding schemes, public-key cryptography, and digital signatures with recovery. With these, you can explain how a wallet authorises a transaction, how a network verifies it without trusting anyone, and how an address ties back to a key. Every structure real chains use, from derivation paths to Merkle trees, is these four primitives combined.
+You've now seen the four cryptographic building blocks that the rest of the blockchain depends on: hash functions, encoding schemes, public-key cryptography, and digital signatures with recovery. With these, you can explain how a wallet authorises a transaction, a network verifies it without trusting anyone, and an address ties back to a key. Every structure real chains use, from derivation paths to Merkle trees, is these four primitives combined.
